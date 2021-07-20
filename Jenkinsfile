@@ -1,16 +1,9 @@
 
 
-// def test() {
-//   dir("build") {
-//     try {
-//       return sh(returnStdout: true, script: "echo test")
-//     } catch(Exception e) {
-//       println "Fails to get recent ticket keys coz : ${e}"
-//       return "fail"
-//     }
-//   }
-// }
+def test() {
+  withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
+    return sh(returnStdout: true, script: "echo 'test'")
+  }
+}
 
-// println test()
-
-println "test 2"
+println test()
