@@ -17,13 +17,14 @@ def deployParams = [
 ]
 
 println COUNTRIES
-println countries
+// println countries
 
-parameters {
-    string(name: 'COUNTRIES', defaultValue: "hk, sg, tw, in, vn", description: 'countries')
-}
+// parameters {
+//     string(name: 'COUNTRIES', defaultValue: "hk, sg, tw, in, vn", description: 'countries')
+// }
 
-println params.COUNTRIES
+deployParams.countries = COUNTRIES.split(',')
+println deployParams.countries
 
 // def test() {
 //   withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
