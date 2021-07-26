@@ -24,7 +24,7 @@ println COUNTRIES
 // }
 println deployParams.countries.getClass().getName()
 println deployParams.countries
-deployParams.countries = COUNTRIES.split(',')
+deployParams.countries = Arrays.asList(COUNTRIES.split(','))
 println deployParams.countries
 
 // def test() {
