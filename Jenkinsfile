@@ -16,7 +16,14 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println deployParams
+println COUNTRIES
+println countries
+
+parameters {
+    string(name: 'COUNTRIES', defaultValue: "hk, sg, tw, in, vn", description: 'countries')
+}
+
+println params.COUNTRIES
 
 // def test() {
 //   withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
