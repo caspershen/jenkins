@@ -22,6 +22,7 @@ println COUNTRIES
 // parameters {
 //     string(name: 'COUNTRIES', defaultValue: "hk, sg, tw, in, vn", description: 'countries')
 // }
+println deployParams.countries.getClass().getName()
 println deployParams.countries
 deployParams.countries = COUNTRIES.split(',')
 println deployParams.countries
