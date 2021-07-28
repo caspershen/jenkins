@@ -19,6 +19,8 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
+println deployParams
+
 if (env.countries) {
   deployParams.countries = Arrays.asList(env.countries.split(','))
 }
@@ -55,6 +57,8 @@ deployParams.db_migraiton_cmd = env.db_migraiton_cmd ?: deployParams.db_migraito
 if (env.extra_helm_value_files) {
   deployParams.extra_helm_value_files = Arrays.asList(env.extra_helm_value_files.split(','))
 }
+
+println deployParams
 
 def stringToMap(jsonString, defaultValue) {
   try {
