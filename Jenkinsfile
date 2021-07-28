@@ -18,7 +18,7 @@ def deployParams = [
 
 println COUNTRIES
 println countries
-if (binding.hasVariable('COUNTRIES')) {
+if (env.COUNTRIES) {
   println "1"
   deployParams.countries = Arrays.asList(COUNTRIES.split(','))
 }
@@ -26,14 +26,6 @@ if (binding.hasVariable('COUNTRIES')) {
 if (binding.hasVariable('countries')) {
   println "2"
   deployParams.countries = Arrays.asList(countries.split(','))
-}
-
-if (binding.variables.containsKey("COUNTRIES")) {
-  println "3"
-}
-
-if (binding.variables.containsKey("countries")) {
-  println "4"
 }
 
 if (binding.hasVariable('APPLICATION')) {
