@@ -20,9 +20,9 @@ def deployParams = [
 ]
 
 //def json = new JsonBuilder(deployParams.env_namespace_mapping).toString()
-def m = new JsonSlurper().parseText('{"dev": "pf-dev", "stag": "pf-stag"}')
+def m = new JsonSlurper().parseText(env.env_namespace_mapping)
 
-println m["dev"]
+println m
 println deployParams.env_namespace_mapping
 
 if (env.countries) {
