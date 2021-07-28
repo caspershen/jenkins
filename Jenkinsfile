@@ -17,7 +17,9 @@ def deployParams = [
 ]
 
 println COUNTRIES
-println APPLICATION
+if (binding.hasVariable('APPLICATION')) {
+  println APPLICATION
+}
 // println countries
 
 // parameters {
