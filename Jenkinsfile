@@ -19,8 +19,8 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-def json = new JsonBuilder(deployParams.env_namespace_mapping).toString()
-println new JsonSlurper().parseText(json)
+//def json = new JsonBuilder(deployParams.env_namespace_mapping).toString()
+println new JsonSlurper().parseText('{"dev": "pf-dev", "stag": "pf-stag"}')
 
 if (env.countries) {
   println "1"
