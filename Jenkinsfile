@@ -19,9 +19,6 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-//def json = new JsonBuilder(deployParams.env_namespace_mapping).toString()
-def m = new JsonSlurper().parseText(env.env_namespace_mapping)
-
 println m
 println deployParams.env_namespace_mapping
 
@@ -29,40 +26,44 @@ if (env.countries) {
   deployParams.countries = Arrays.asList(env.countries.split(','))
 }
 
-// if (env.application) {
-//   deployParams.application = env.application
-// }
+deployParams.application = env.application ?: deployParams.application
+deployParams.notify_slack = env.notify_slack ?: deployParams.notify_slack
+deployParams.envs = env.envs ?: deployParams.envs
 
-deployParams.application = env.application?: deployParams.application
-println deployParams.application
+if (env.ticket_themes) {
+  deployParams.ticket_themes = Arrays.asList(env.ticket_themes.split(','))
+}
 
-// deployParams.notify_slack = env.notify_slack?: false
-// println deployParams.notify_slack
+deployParams.transition_deployed_ticket_to_status = env.transition_deployed_ticket_to_status ?: deployParams.transition_deployed_ticket_to_status
+deployParams.cicd_image_name = env.cicd_image_name ?: deployParams.cicd_image_name
 
-// if (env.choice) {
-//   println env.choice
-// }
+if (env.env_namespace_mapping) {
+  deployParams.env_namespace_mapping = stringToMap(env.env_namespace_mapping, deployParams.env_namespace_mapping)
+}
 
-// if (env.choice2) {
-//   println env.choice2
-// }
+if (env.env_cluster_mapping) {
+  deployParams.env_cluster_mapping = stringToMap(env.env_cluster_mapping, deployParams.env_cluster_mapping)
+}
 
-// if (env.textparam) {
-//   println env.textparam
-// }
+if (env.env_app_tiller_namespace_mapping) {
+  deployParams.env_app_tiller_namespace_mapping = stringToMap(env.env_app_tiller_namespace_mapping, deployParams.env_app_tiller_namespace_mapping)
+}
 
+if (env.env_cicd_sa_mapping) {
+  deployParams.env_cicd_sa_mapping = stringToMap(env.env_cicd_sa_mapping, deployParams.env_cicd_sa_mapping)
+}
 
-// println deployParams
+deployParams.db_migraiton_cmd = env.db_migraiton_cmd ?: deployParams.db_migraiton_cmd
 
-// def test() {
-//   withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
-//     return "test 2"
-//   }
-// }
+if (env.extra_helm_value_files) {
+  deployParams.extra_helm_value_files = Arrays.asList(env.extra_helm_value_files.split(','))
+}
 
-
-// kuberneteAgent.call("ggvdevops/jenkins-test", "1.1", 60) {
-//   dir("build/${env.BUILD_ID}") {
-//     println test()
-//   }
-// }
+def stringToMap(jsonString, defaultValue) {
+  try {
+    return new JsonSlurper().parseText(jsonString)
+  } catch (Exception e) {
+    println e
+    return defaultValue
+  }
+}
