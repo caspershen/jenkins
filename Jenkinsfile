@@ -23,7 +23,7 @@ if (env.COUNTRIES) {
   deployParams.countries = Arrays.asList(COUNTRIES.split(','))
 }
 
-if (binding.hasVariable('countries')) {
+if (env.countries) {
   println "2"
   deployParams.countries = Arrays.asList(countries.split(','))
 }
