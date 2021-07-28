@@ -26,16 +26,18 @@ println m["dev"]
 println deployParams.env_namespace_mapping
 
 if (env.countries) {
-  println "1"
   deployParams.countries = Arrays.asList(env.countries.split(','))
 }
 
-if (env.application) {
-  deployParams.application = env.application
-}
+// if (env.application) {
+//   deployParams.application = env.application
+// }
 
-deployParams.notify_slack = env.notify_slack?: false
-println deployParams.notify_slack
+deployParams.application = env.application?: deployParams.application
+println deployParams.application
+
+// deployParams.notify_slack = env.notify_slack?: false
+// println deployParams.notify_slack
 
 // if (env.choice) {
 //   println env.choice
