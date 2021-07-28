@@ -1,5 +1,7 @@
 @Library('gogox-agent-library') _
 
+import groovy.json.JsonSlurper
+
 def deployParams = [
   countries: ['hk', 'sg', 'tw', 'in', 'vn'],
   application:  'gogovan-server',
@@ -15,6 +17,8 @@ def deployParams = [
   db_migraiton_cmd: "rails db:migrate",
   extra_helm_value_files: ['shared_values.yaml']
 ]
+
+println new JsonSlurper().parseText('"dev": "pf-dev", "stag": "pf-stag"')
 
 if (env.countries) {
   println "1"
