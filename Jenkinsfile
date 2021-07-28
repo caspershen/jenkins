@@ -16,6 +16,8 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
+println COUNTRIES
+println countries
 if (binding.hasVariable('COUNTRIES')) {
   println "1"
   deployParams.countries = Arrays.asList(COUNTRIES.split(','))
