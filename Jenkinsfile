@@ -17,7 +17,13 @@ def deployParams = [
 ]
 
 if (binding.hasVariable('COUNTRIES')) {
+  println "1"
   deployParams.countries = Arrays.asList(COUNTRIES.split(','))
+}
+
+if (binding.hasVariable('countries')) {
+  println "2"
+  deployParams.countries = Arrays.asList(countries.split(','))
 }
 
 if (binding.hasVariable('APPLICATION')) {
@@ -41,7 +47,7 @@ if (binding.hasVariable('TEXTPARAM')) {
 }
 
 
-println deployParams
+// println deployParams
 
 // def test() {
 //   withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
