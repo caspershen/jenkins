@@ -28,6 +28,14 @@ if (binding.hasVariable('countries')) {
   deployParams.countries = Arrays.asList(countries.split(','))
 }
 
+if (binding.variables.containsKey("COUNTRIES")) {
+  println "3"
+}
+
+if (binding.variables.containsKey("countries")) {
+  println "4"
+}
+
 if (binding.hasVariable('APPLICATION')) {
   deployParams.application = APPLICATION
 }
