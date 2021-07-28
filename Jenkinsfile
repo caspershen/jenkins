@@ -18,7 +18,7 @@ def deployParams = [
 
 println COUNTRIES
 println countries
-if (env.COUNTRIES) {
+if (env.containsKey('COUNTRIES')) {
   println "1"
   deployParams.countries = Arrays.asList(COUNTRIES.split(','))
 }
