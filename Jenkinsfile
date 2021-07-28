@@ -19,9 +19,6 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println m
-println deployParams.env_namespace_mapping
-
 if (env.countries) {
   deployParams.countries = Arrays.asList(env.countries.split(','))
 }
