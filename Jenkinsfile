@@ -16,36 +16,29 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println COUNTRIES
-println countries
-if (env.containsKey('COUNTRIES')) {
-  println "1"
-  deployParams.countries = Arrays.asList(COUNTRIES.split(','))
-}
-
 if (env.countries) {
-  println "2"
-  deployParams.countries = Arrays.asList(countries.split(','))
+  println "1"
+  deployParams.countries = Arrays.asList(env.countries.split(','))
 }
 
-if (binding.hasVariable('APPLICATION')) {
-  deployParams.application = APPLICATION
+if (env.application) {
+  deployParams.application = env.application
 }
 
-if (binding.hasVariable('NOTIFY_SLACK')) {
-  println NOTIFY_SLACK
+if (env.notify_slack) {
+  println env.notify_slack
 }
 
-if (binding.hasVariable('CHOICE')) {
-  println CHOICE
+if (env.choice) {
+  println env.choice
 }
 
-if (binding.hasVariable('CHOICE2')) {
-  println CHOICE2
+if (env.choice2) {
+  println env.choice2
 }
 
-if (binding.hasVariable('TEXTPARAM')) {
-  println CHOICE2
+if (env.textparam) {
+  println env.textparam
 }
 
 
