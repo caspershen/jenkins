@@ -17,6 +17,7 @@ def deployParams = [
 ]
 
 println COUNTRIES
+println APPLICATION
 // println countries
 
 // parameters {
