@@ -3,7 +3,7 @@
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
-def deployParams = [
+def params = [
   countries: ['hk', 'sg', 'tw', 'in', 'vn'],
   application:  'gogovan-server',
   notify_slack: true,
@@ -19,46 +19,48 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println deployParams
+println params
+parseDeployParams(params)
+println params
 
-if (env.countries) {
-  deployParams.countries = Arrays.asList(env.countries.split(','))
+def parseDeployParams(deployParams) {
+  if (env.countries) {
+    deployParams.countries = Arrays.asList(env.countries.split(','))
+  }
+
+  deployParams.application = env.application ?: deployParams.application
+  deployParams.notify_slack = env.notify_slack ?: deployParams.notify_slack
+  deployParams.envs = env.envs ?: deployParams.envs
+
+  if (env.ticket_themes) {
+    deployParams.ticket_themes = Arrays.asList(env.ticket_themes.split(','))
+  }
+
+  deployParams.transition_deployed_ticket_to_status = env.transition_deployed_ticket_to_status ?: deployParams.transition_deployed_ticket_to_status
+  deployParams.cicd_image_name = env.cicd_image_name ?: deployParams.cicd_image_name
+
+  if (env.env_namespace_mapping) {
+    deployParams.env_namespace_mapping = stringToMap(env.env_namespace_mapping, deployParams.env_namespace_mapping)
+  }
+
+  if (env.env_cluster_mapping) {
+    deployParams.env_cluster_mapping = stringToMap(env.env_cluster_mapping, deployParams.env_cluster_mapping)
+  }
+
+  if (env.env_app_tiller_namespace_mapping) {
+    deployParams.env_app_tiller_namespace_mapping = stringToMap(env.env_app_tiller_namespace_mapping, deployParams.env_app_tiller_namespace_mapping)
+  }
+
+  if (env.env_cicd_sa_mapping) {
+    deployParams.env_cicd_sa_mapping = stringToMap(env.env_cicd_sa_mapping, deployParams.env_cicd_sa_mapping)
+  }
+
+  deployParams.db_migraiton_cmd = env.db_migraiton_cmd ?: deployParams.db_migraiton_cmd
+
+  if (env.extra_helm_value_files) {
+    deployParams.extra_helm_value_files = Arrays.asList(env.extra_helm_value_files.split(','))
+  }
 }
-
-deployParams.application = env.application ?: deployParams.application
-deployParams.notify_slack = env.notify_slack ?: deployParams.notify_slack
-deployParams.envs = env.envs ?: deployParams.envs
-
-if (env.ticket_themes) {
-  deployParams.ticket_themes = Arrays.asList(env.ticket_themes.split(','))
-}
-
-deployParams.transition_deployed_ticket_to_status = env.transition_deployed_ticket_to_status ?: deployParams.transition_deployed_ticket_to_status
-deployParams.cicd_image_name = env.cicd_image_name ?: deployParams.cicd_image_name
-
-if (env.env_namespace_mapping) {
-  deployParams.env_namespace_mapping = stringToMap(env.env_namespace_mapping, deployParams.env_namespace_mapping)
-}
-
-if (env.env_cluster_mapping) {
-  deployParams.env_cluster_mapping = stringToMap(env.env_cluster_mapping, deployParams.env_cluster_mapping)
-}
-
-if (env.env_app_tiller_namespace_mapping) {
-  deployParams.env_app_tiller_namespace_mapping = stringToMap(env.env_app_tiller_namespace_mapping, deployParams.env_app_tiller_namespace_mapping)
-}
-
-if (env.env_cicd_sa_mapping) {
-  deployParams.env_cicd_sa_mapping = stringToMap(env.env_cicd_sa_mapping, deployParams.env_cicd_sa_mapping)
-}
-
-deployParams.db_migraiton_cmd = env.db_migraiton_cmd ?: deployParams.db_migraiton_cmd
-
-if (env.extra_helm_value_files) {
-  deployParams.extra_helm_value_files = Arrays.asList(env.extra_helm_value_files.split(','))
-}
-
-println deployParams
 
 def stringToMap(jsonString, defaultValue) {
   try {
