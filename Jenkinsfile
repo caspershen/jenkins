@@ -16,19 +16,32 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println COUNTRIES
-if (binding.hasVariable('APPLICATION')) {
-  println APPLICATION
+if (binding.hasVariable('COUNTRIES')) {
+  deployParams.countries = Arrays.asList(COUNTRIES.split(','))
 }
-// println countries
 
-// parameters {
-//     string(name: 'COUNTRIES', defaultValue: "hk, sg, tw, in, vn", description: 'countries')
-// }
-println deployParams.countries.getClass().getName()
-println deployParams.countries
-deployParams.countries = Arrays.asList(COUNTRIES.split(','))
-println deployParams.countries
+if (binding.hasVariable('APPLICATION')) {
+  deployParams.application = APPLICATION
+}
+
+if (binding.hasVariable('NOTIFY_SLACK')) {
+  println NOTIFY_SLACK
+}
+
+if (binding.hasVariable('CHOICE')) {
+  println CHOICE
+}
+
+if (binding.hasVariable('CHOICE2')) {
+  println CHOICE2
+}
+
+if (binding.hasVariable('TEXTPARAM')) {
+  println CHOICE2
+}
+
+
+println deployParams
 
 // def test() {
 //   withCredentials([usernamePassword(credentialsId: "jenkins-service-account", passwordVariable: 'JIRA_TOKEN', usernameVariable: 'JIRA_EMAIL')]) {
