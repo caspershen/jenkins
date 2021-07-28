@@ -1,5 +1,6 @@
 @Library('gogox-agent-library') _
 
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
 def deployParams = [
@@ -18,7 +19,8 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-println new JsonSlurper().parseText('"dev": "pf-dev", "stag": "pf-stag"')
+def json = new JsonBuilder(deployParams.env_namespace_mapping).toString()
+println new JsonSlurper().parseText(json)
 
 if (env.countries) {
   println "1"
