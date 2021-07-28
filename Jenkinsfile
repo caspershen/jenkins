@@ -34,21 +34,20 @@ if (env.application) {
   deployParams.application = env.application
 }
 
-if (env.notify_slack) {
-  println env.notify_slack
-}
+deployParams.notify_slack = env.notify_slack?: false
+println deployParams.notify_slack
 
-if (env.choice) {
-  println env.choice
-}
+// if (env.choice) {
+//   println env.choice
+// }
 
-if (env.choice2) {
-  println env.choice2
-}
+// if (env.choice2) {
+//   println env.choice2
+// }
 
-if (env.textparam) {
-  println env.textparam
-}
+// if (env.textparam) {
+//   println env.textparam
+// }
 
 
 // println deployParams
