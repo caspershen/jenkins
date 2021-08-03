@@ -19,8 +19,19 @@ def params = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'StringParameterDefinition', name: 'myparam', defaultValue: 'default value']]]])
-echo "received ${binding.hasVariable('myparam') ? myparam : 'undefined'}"
+properties([
+  parameters([
+    string(
+      name: 'countries',
+      defaultValue: 'tw,hk',
+      description: 'countries'
+    )
+  ])
+)]
+  // [$class: 'GeneratorKeyValueParameterDefinition', parameterDefinitions: [[$class: 'StringParameterDefinition', name: 'myparam', defaultValue: 'default value']]]])
+//echo "received ${binding.hasVariable('countries') ? countries : 'undefined'}"
+println params
+println params.countries
 
 def parseDeployParams(deployParams) {
   if (env.countries) {
