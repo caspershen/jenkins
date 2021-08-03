@@ -31,15 +31,22 @@ import groovy.json.JsonSlurper
 
 properties([
   parameters([
-    string(name: 'submodule', defaultValue: '123123'),
-    string(name: 'submodule_branch', defaultValue: 'aaaaa'),
-    string(name: 'commit_sha', defaultValue: 'wargaf'),
+    string(name: 'countries', defaultValue: 'hk,sg,tw,in,vn'),
+    string(name: 'application', defaultValue: 'gogovan-server'),
+    booleanParam(name: 'notify_slack', defaultValue: true),
+    string(name: 'ticket_themes', defaultValue: 'DET,BET,CET,PT,DT,IET'),
+    string(name: 'transition_deployed_ticket_to_status', defaultValue: 'Ready for QA'),
+    string(name: 'cicd_image_name', defaultValue: 'gke-helm-v2'),
+    string(name: 'env_namespace_mapping', defaultValue: '{"dev": "pf-dev", "stag": "pf-stag", "qa": "pf-qa", "autoqa": "pf-autoqa", "prod": "pf"}'),
+    string(name: 'env_cluster_mapping', defaultValue: '{"prod": "k8scluster-prod", "default": "k8scluster-nonprod2-sg"}'),
+    string(name: 'env_app_tiller_namespace_mapping', defaultValue: '{"default": "app-helm-tiller"}'),
+    string(name: 'env_cicd_sa_mapping', defaultValue: '{"default": "ggv-sa-cicd"}'),
+    string(name: 'db_migraiton_cmd', defaultValue: 'rails db:migrate'),
+    string(name: 'extra_helm_value_files', defaultValue: 'shared_values.yaml')
   ])
 ])
-  // [$class: 'GeneratorKeyValueParameterDefinition', parameterDefinitions: [[$class: 'StringParameterDefinition', name: 'myparam', defaultValue: 'default value']]]])
-//echo "received ${binding.hasVariable('countries') ? countries : 'undefined'}"
+
 println params
-println params.submodule
 
 def parseDeployParams(deployParams) {
   if (env.countries) {
