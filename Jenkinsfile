@@ -19,15 +19,23 @@ def params = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
+// properties([
+//   parameters([
+//     string(
+//       name: 'countries',
+//       defaultValue: 'tw,hk',
+//       description: 'countries'
+//     )
+//   ])
+// )]
+
 properties([
   parameters([
-    string(
-      name: 'countries',
-      defaultValue: 'tw,hk',
-      description: 'countries'
-    )
+    string(name: 'submodule', defaultValue: ''),
+    string(name: 'submodule_branch', defaultValue: ''),
+    string(name: 'commit_sha', defaultValue: ''),
   ])
-)]
+])
   // [$class: 'GeneratorKeyValueParameterDefinition', parameterDefinitions: [[$class: 'StringParameterDefinition', name: 'myparam', defaultValue: 'default value']]]])
 //echo "received ${binding.hasVariable('countries') ? countries : 'undefined'}"
 println params
