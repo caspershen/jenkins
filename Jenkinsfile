@@ -3,21 +3,21 @@
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 
-def params = [
-  countries: ['hk', 'sg', 'tw', 'in', 'vn'],
-  application:  'gogovan-server',
-  notify_slack: true,
-  envs: 'dev|qa|autoqa|stag|prod',
-  ticket_themes: ['DET', 'BET', 'CET', 'PT', 'DT', 'IET'],
-  transition_deployed_ticket_to_status: 'Ready for QA',
-  cicd_image_name: 'gke-helm-v2',
-  env_namespace_mapping: ["dev": "pf-dev", "stag": "pf-stag", "qa": "pf-qa", "autoqa": "pf-autoqa", "prod": "pf"],
-  env_cluster_mapping: ["prod": "k8scluster-prod", "default": "k8scluster-nonprod2-sg"],
-  env_app_tiller_namespace_mapping: ["default": "app-helm-tiller"],
-  env_cicd_sa_mapping: ["default": "ggv-sa-cicd"],
-  db_migraiton_cmd: "rails db:migrate",
-  extra_helm_value_files: ['shared_values.yaml']
-]
+// def params = [
+//   countries: ['hk', 'sg', 'tw', 'in', 'vn'],
+//   application:  'gogovan-server',
+//   notify_slack: true,
+//   envs: 'dev|qa|autoqa|stag|prod',
+//   ticket_themes: ['DET', 'BET', 'CET', 'PT', 'DT', 'IET'],
+//   transition_deployed_ticket_to_status: 'Ready for QA',
+//   cicd_image_name: 'gke-helm-v2',
+//   env_namespace_mapping: ["dev": "pf-dev", "stag": "pf-stag", "qa": "pf-qa", "autoqa": "pf-autoqa", "prod": "pf"],
+//   env_cluster_mapping: ["prod": "k8scluster-prod", "default": "k8scluster-nonprod2-sg"],
+//   env_app_tiller_namespace_mapping: ["default": "app-helm-tiller"],
+//   env_cicd_sa_mapping: ["default": "ggv-sa-cicd"],
+//   db_migraiton_cmd: "rails db:migrate",
+//   extra_helm_value_files: ['shared_values.yaml']
+// ]
 
 // properties([
 //   parameters([
@@ -31,15 +31,15 @@ def params = [
 
 properties([
   parameters([
-    string(name: 'submodule', defaultValue: ''),
-    string(name: 'submodule_branch', defaultValue: ''),
-    string(name: 'commit_sha', defaultValue: ''),
+    string(name: 'submodule', defaultValue: '123123'),
+    string(name: 'submodule_branch', defaultValue: 'aaaaa'),
+    string(name: 'commit_sha', defaultValue: 'wargaf'),
   ])
 ])
   // [$class: 'GeneratorKeyValueParameterDefinition', parameterDefinitions: [[$class: 'StringParameterDefinition', name: 'myparam', defaultValue: 'default value']]]])
 //echo "received ${binding.hasVariable('countries') ? countries : 'undefined'}"
 println params
-println params.countries
+println params.submodule
 
 def parseDeployParams(deployParams) {
   if (env.countries) {
