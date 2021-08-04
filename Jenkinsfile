@@ -88,12 +88,14 @@ parseDeployParams(params, deployParams)
 
 println deployParams
 
+def test() {
+  def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
+  def image = "gogotechhk/devops:gke-helm-v2"
 
-def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
-def image = "gogotechhk/devops:gke-helm-v2"
 
-kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
-    stage('1') {
-      println "test"
-    }
+  kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
+      stage('1') {
+        println "test"
+      }
+  }
 }
