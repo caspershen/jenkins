@@ -43,7 +43,13 @@ def parseDeployParams(params, deployParams) {
 
 def stringToMap(jsonString, defaultValue) {
   try {
-    return new JsonSlurper().parseText(jsonString)
+    def map = [:]
+
+    def jsonMap = new JsonSlurper().parseText(jsonString)
+    jsonMap.each { key, value ->
+      map[key] = value
+    }
+    return map
   } catch (Exception e) {
     println "Failed to parse jsonString [${jsonString}]. error: [${e}]"
     return defaultValue
@@ -88,18 +94,20 @@ parseDeployParams(params, deployParams)
 
 // println deployParams
 
-def test() {
-  def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
-  def image = "gogotechhk/devops:gke-helm-v2"
+// def test() {
+//   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
+//   def image = "gogotechhk/devops:gke-helm-v2"
 
 
-  kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
-      stage('1') {
-        println "test"
-      }
-  } { Exception e ->
-    println e
-  }
-} 
+//   kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
+//       stage('1') {
+//         println "test"
+//       }
+//   } { Exception e ->
+//     println e
+//   }
+// } 
 
-test()
+// test()
+
+println deployParams.env_cicd_sa_mapping
