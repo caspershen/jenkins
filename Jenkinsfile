@@ -89,10 +89,10 @@ parseDeployParams(params, deployParams)
 println deployParams
 
 
-kuberneteAgent.deployAgent(agentLabel, image, get_service_account(), cluster_name(), blocked_concurrent_jobs(), Global.job_timeout.toInteger(), 1440) {
-    def appRepoURL = "https://github.com/gogovan/${Global.application}.git"
-    def commitHash, commitMessage, gitAuthor
-    def branchName = env.BRANCH_NAME
+def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
+def image = "gogotechhk/devops:gke-helm-v2"
+
+kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
     stage('1') {
       println "test"
     }
