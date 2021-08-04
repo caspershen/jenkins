@@ -49,7 +49,7 @@ def stringToMap(jsonString, defaultValue) {
     jsonMap.each { key, value ->
       map[key] = value
     }
-    return jsonMap
+    return map
   } catch (Exception e) {
     println "Failed to parse jsonString [${jsonString}]. error: [${e}]"
     return defaultValue
