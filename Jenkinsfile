@@ -96,4 +96,4 @@ kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod
     stage('1') {
       println "test"
     }
-})
+}
