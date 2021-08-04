@@ -87,3 +87,6 @@ def deployParams = [
 parseDeployParams(params, deployParams)
 
 println deployParams
+
+
+println "test auto trigger"
