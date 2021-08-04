@@ -99,3 +99,5 @@ def test() {
       }
   }
 }
+
+test()
