@@ -86,7 +86,7 @@ def deployParams = [
 
 parseDeployParams(params, deployParams)
 
-println deployParams
+// println deployParams
 
 def test() {
   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
@@ -97,7 +97,9 @@ def test() {
       stage('1') {
         println "test"
       }
+  } { Exception e ->
+    println e
   }
-}
+} 
 
 test()
