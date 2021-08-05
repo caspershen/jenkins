@@ -35,8 +35,7 @@ def deployParams = [
 ]
 
 deploy.parseDeployParams(params, deployParams)
-//deploy.call(deployParams)
-// println deployParams
+deploy.call(deployParams)
 
 // def test(deployParams) {
 //   deploy.parseDeployParams(params, deployParams)
@@ -44,20 +43,20 @@ deploy.parseDeployParams(params, deployParams)
 // }
 // test(deployParams)
 
-def func1(Closure body) {
-  body.call()
-}
+// def func1(Closure body) {
+//   body.call()
+// }
 
-def test(deployParams) {
-  println deployParams
+// def test(deployParams) {
+//   println deployParams
 
-  println "A"
-  func1() {
-    println "B"
-    stage('(1) Initialization') {
-      println deployParams
-    }
-  }
-}
+//   println "A"
+//   func1() {
+//     println "B"
+//     stage('(1) Initialization') {
+//       println deployParams
+//     }
+//   }
+// }
 
-test(deployParams)
+// test(deployParams)
