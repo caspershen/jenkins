@@ -114,4 +114,4 @@ def test(deployParams) {
   }
 } 
 
-test(deployParams)
+// test(deployParams)
