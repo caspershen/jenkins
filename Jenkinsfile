@@ -1,4 +1,4 @@
-@Library('gogox-agent-library') _
+@Library('test-lib') _
 
 import groovy.json.JsonSlurper
 
@@ -98,17 +98,18 @@ def deployParams = [
 
 // println deployParams
 parseDeployParams(params, deployParams)
-def test(deployParams) {
-  def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
-  def image = "gogotechhk/devops:gke-helm-v2"
+deploy.call(deployParams)
+// def test(deployParams) {
+//   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
+//   def image = "gogotechhk/devops:gke-helm-v2"
 
-  kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
-      stage('1') {
-        println "test2"
-      }
-  } { Exception e ->
-    println e
-  }
-}(deployParams)
+//   kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
+//       stage('1') {
+//         println "test2"
+//       }
+//   } { Exception e ->
+//     println e
+//   }
+// }
 // parseDeployParams(params, deployParams)
 // test(deployParams)
