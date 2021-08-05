@@ -36,7 +36,7 @@ def deployParams = [
 
 
 
-def test() {
+def test(deployParams) {
   properties([
     parameters([
       string(name: 'countries', defaultValue: 'hk,sg'),
@@ -58,4 +58,4 @@ def test() {
   deploy.parseDeployParams(params, deployParams)
   deploy.call(deployParams)
 }
-test()
+test(deployParams)
