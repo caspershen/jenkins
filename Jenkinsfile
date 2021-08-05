@@ -94,16 +94,13 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-parseDeployParams(params, deployParams)
+
 
 // println deployParams
 
 def test(deployParams) {
   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
   def image = "gogotechhk/devops:gke-helm-v2"
-
-  println deployParams
-
 
   kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
       stage('1') {
@@ -113,5 +110,5 @@ def test(deployParams) {
     println e
   }
 } 
-
-// test(deployParams)
+parseDeployParams(params, deployParams)
+test(deployParams)
