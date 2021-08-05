@@ -56,8 +56,8 @@ def test(deployParams) {
     println "B"
     stage('(1) Initialization') {
       println deployParams
-    
+    }
   }
 }
 
-test(deployParams);
+test(deployParams)
