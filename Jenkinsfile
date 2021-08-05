@@ -43,15 +43,15 @@ def parseDeployParams(params, deployParams) {
 
 def stringToMap(jsonString, defaultValue) {
   try {
-    // def map = [:]
+    def map = [:]
 
-    //def jsonMap = new JsonSlurper().parseText(jsonString)
-    println "5566"
-    return new HashMap<>(new JsonSlurper().parseText(jsonString))
-    // jsonMap.each { key, value ->
-    //   map[key] = value
-    // }
-    // return map
+    def jsonMap = new JsonSlurper().parseText(jsonString)
+    println "7788"
+    // return new HashMap<>(new JsonSlurper().parseText(jsonString))
+    jsonMap.each { key, value ->
+      map[key] = value
+    }
+    return map
   } catch (Exception e) {
     println "Failed to parse jsonString [${jsonString}]. error: [${e}]"
     return defaultValue
