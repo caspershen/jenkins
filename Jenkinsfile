@@ -44,11 +44,19 @@ deploy.parseDeployParams(params, deployParams)
 // }
 // test(deployParams)
 
+def func1(Closure body) {
+  body.call()
+}
+
 def test(deployParams) {
   println deployParams
 
-  stage('(1) Initialization') {
+  println "A"
+  func1() {
+    println "B"
+    stage('(1) Initialization') {
       println deployParams
+    
   }
 }
 
