@@ -1,7 +1,5 @@
 @Library('test-lib') _
 
-import groovy.json.JsonSlurper
-
 properties([
   parameters([
     string(name: 'countries', defaultValue: 'hk,sg'),
@@ -20,64 +18,6 @@ properties([
   ])
 ])
 
-def parseDeployParams(params, deployParams) {
-  if (params.countries) {
-    deployParams.countries = Arrays.asList(params.countries.split(','))
-  }
-
-  deployParams.application = params.application ?: deployParams.application
-  deployParams.notify_slack = params.notify_slack == null ? deployParams.notify_slack : params.notify_slack
-  deployParams.envs = params.envs ?: deployParams.envs
-
-  if (params.ticket_themes) {
-    deployParams.ticket_themes = Arrays.asList(params.ticket_themes.split(','))
-  }
-
-  deployParams.transition_deployed_ticket_to_status = params.transition_deployed_ticket_to_status ?: deployParams.transition_deployed_ticket_to_status
-  deployParams.cicd_image_name = params.cicd_image_name ?: deployParams.cicd_image_name
-
-  if (params.env_namespace_mapping) {
-    deployParams.env_namespace_mapping = stringToMap(params.env_namespace_mapping, deployParams.env_namespace_mapping)
-  }
-
-  if (params.env_cluster_mapping) {
-    deployParams.env_cluster_mapping = stringToMap(params.env_cluster_mapping, deployParams.env_cluster_mapping)
-  }
-
-  if (params.env_app_tiller_namespace_mapping) {
-    deployParams.env_app_tiller_namespace_mapping = stringToMap(params.env_app_tiller_namespace_mapping, deployParams.env_app_tiller_namespace_mapping)
-  }
-
-  if (params.env_cicd_sa_mapping) {
-    deployParams.env_cicd_sa_mapping = stringToMap(params.env_cicd_sa_mapping, deployParams.env_cicd_sa_mapping)
-  }
-
-  deployParams.db_migraiton_cmd = params.db_migraiton_cmd ?: deployParams.db_migraiton_cmd
-
-  if (params.extra_helm_value_files) {
-    deployParams.extra_helm_value_files = Arrays.asList(params.extra_helm_value_files.split(','))
-  }
-}
-
-def stringToMap(jsonString, defaultValue) {
-  try {
-    def map = [:]
-
-    def jsonMap = new JsonSlurper().parseText(jsonString)
-    println "7788"
-    // return new HashMap<>(new JsonSlurper().parseText(jsonString))
-    jsonMap.each { key, value ->
-      map[key] = value
-    }
-    return map
-  } catch (Exception e) {
-    println "Failed to parse jsonString [${jsonString}]. error: [${e}]"
-    return defaultValue
-  }
-}
-
-
-
 def deployParams = [
   countries: ['hk', 'sg', 'tw', 'in', 'vn'],
   application:  'gogovan-server',
@@ -94,22 +34,5 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
-
-
-// println deployParams
-parseDeployParams(params, deployParams)
+deploy.parseDeployParams(params, deployParams)
 deploy.call(deployParams)
-// def test(deployParams) {
-//   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
-//   def image = "gogotechhk/devops:gke-helm-v2"
-
-//   kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
-//       stage('1') {
-//         println "test2"
-//       }
-//   } { Exception e ->
-//     println e
-//   }
-// }
-// parseDeployParams(params, deployParams)
-// test(deployParams)
