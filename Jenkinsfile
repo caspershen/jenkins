@@ -15,7 +15,11 @@ properties([
     string(name: 'env_cicd_sa_mapping', defaultValue: '{"default": "ggv-sa-cicd-test"}'),
     string(name: 'db_migraiton_cmd', defaultValue: 'rails db:migrate'),
     string(name: 'extra_helm_value_files', defaultValue: 'shared_values.yaml,shared_values2.yaml')
-  ])
+  ]),
+  [$class: 'BuildBlockerProperty', blockLevel: 'Global',
+  blockingJobs: blockedConcurrentJobs, scanQueueFor: 'ALL',
+  useBuildBlocker: true],
+  disableConcurrentBuilds()
 ])
 
 def deployParams = [
