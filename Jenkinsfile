@@ -46,6 +46,10 @@ deploy.parseDeployParams(params, deployParams)
 
 def test(deployParams) {
   println deployParams
+
+  stage('(1) Initialization') {
+      println deployParams
+  }
 }
 
 test(deployParams);
