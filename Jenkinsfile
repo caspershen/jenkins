@@ -35,6 +35,7 @@ def deployParams = [
 ]
 
 deploy.parseDeployParams(params, deployParams)
+deploy.call(deployParams)
 println deployParams
 
 // def test(deployParams) {
