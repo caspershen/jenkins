@@ -97,7 +97,7 @@ def deployParams = [
 
 
 // println deployParams
-
+parseDeployParams(params, deployParams)
 def test(deployParams) {
   def agentLabel = "server-cd-dev-k8scluster-nonprod2-sg"
   def image = "gogotechhk/devops:gke-helm-v2"
@@ -109,6 +109,6 @@ def test(deployParams) {
   } { Exception e ->
     println e
   }
-} 
-parseDeployParams(params, deployParams)
-test(deployParams)
+}(deployParams)
+// parseDeployParams(params, deployParams)
+// test(deployParams)
