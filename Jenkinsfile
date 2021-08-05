@@ -34,10 +34,11 @@ def deployParams = [
   extra_helm_value_files: ['shared_values.yaml']
 ]
 
+deploy.parseDeployParams(params, deployParams)
+println deployParams
 
-
-def test(deployParams) {
-  deploy.parseDeployParams(params, deployParams)
-  deploy.call(deployParams)
-}
-test(deployParams)
+// def test(deployParams) {
+//   deploy.parseDeployParams(params, deployParams)
+//   deploy.call(deployParams)
+// }
+// test(deployParams)
