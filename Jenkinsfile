@@ -17,7 +17,7 @@ properties([
     string(name: 'extra_helm_value_files', defaultValue: 'shared_values.yaml,shared_values2.yaml')
   ]),
   [$class: 'BuildBlockerProperty', blockLevel: 'Global',
-  blockingJobs: blockedConcurrentJobs, scanQueueFor: 'ALL',
+  blockingJobs: ".*gogovan-server.*dev.*", scanQueueFor: 'ALL',
   useBuildBlocker: true],
   disableConcurrentBuilds()
 ])
