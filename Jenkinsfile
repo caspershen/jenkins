@@ -46,6 +46,7 @@ def stringToMap(jsonString, defaultValue) {
     // def map = [:]
 
     //def jsonMap = new JsonSlurper().parseText(jsonString)
+    println "5566"
     return new HashMap<>(new JsonSlurper().parseText(jsonString))
     // jsonMap.each { key, value ->
     //   map[key] = value
@@ -102,7 +103,7 @@ def test() {
 
   kuberneteAgent.deployAgent(agentLabel, image, "ggv-sa-cicd", "k8scluster-nonprod2-sg", ".*gogovan-server.*dev.*", 30, 1440) {
       stage('1') {
-        println "test"
+        println "test2"
       }
   } { Exception e ->
     println e
