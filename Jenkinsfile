@@ -35,11 +35,17 @@ def deployParams = [
 ]
 
 deploy.parseDeployParams(params, deployParams)
-deploy.call(deployParams)
-println deployParams
+//deploy.call(deployParams)
+// println deployParams
 
 // def test(deployParams) {
 //   deploy.parseDeployParams(params, deployParams)
 //   deploy.call(deployParams)
 // }
 // test(deployParams)
+
+def test(deployParams) {
+  println deployParams
+}
+
+test(deployParams);
